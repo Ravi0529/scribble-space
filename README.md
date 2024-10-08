@@ -23,7 +23,7 @@ To set up and run the ScribbleSpace app on your local machine, follow these step
 
 1. **Clone the repository**: First, clone the project repository from GitHub by running the following command in your terminal:
    
-   `git clone https://github.com/yourusername/scribblespace.git`
+   `git clone https://github.com/Ravi0529/scribble-space`
 
 2. **Navigate to the project directory**: After cloning the repository, change into the project directory using:
    
@@ -33,7 +33,7 @@ To set up and run the ScribbleSpace app on your local machine, follow these step
 
    - For the **frontend**, navigate to the client folder and run:
      
-     `cd client`
+     `cd frontend`
      
      `npm install`
      
@@ -52,11 +52,11 @@ Replace `your_mongodb_uri` with your MongoDB connection string, and `your_jwt_se
 
 - To start the **backend**, navigate to the server folder and run:
   
-  `npm start`
+  `npm run dev`
 
 - To start the **frontend**, open a new terminal, navigate to the client folder, and run:
   
-  `npm start`
+  `npm run dev`
 
 6. **Access the app**: Once both servers are running, you can access the ScribbleSpace app by opening your browser and navigating to:
 
