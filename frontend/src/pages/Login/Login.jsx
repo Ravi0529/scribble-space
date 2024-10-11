@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import PasswordInput from '../../components/Input/PasswordInput'
 import { validEmail } from '../../utils/helper'
+import axiosInstance from '../../utils/axiosInstance.js'
 
 const Login = () => {
 
@@ -10,14 +11,16 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
 
+  const navigate = useNavigate()
+
   const handleLogin = async (e) => {
     e.preventDefault()
-    if(!validEmail(email)) {
+    if (!validEmail(email)) {
       setError("Please enter a valid email address.")
       return
     }
 
-    if(!password) {
+    if (!password) {
       setError("Please enter the password.")
       return
     }
@@ -25,6 +28,26 @@ const Login = () => {
     setError("")
 
     // login API call
+    try {
+      const response = await axiosInstance.post("/login", {
+        email: email,
+        password: password
+      })
+
+      // handle successful login response
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken)
+        navigate("/dashboard")
+      }
+    }
+    catch(error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message)
+      }
+      else {
+        setError("An unexpected error occurred. Please try again.")
+      }
+    }
   }
 
   return (
@@ -35,7 +58,7 @@ const Login = () => {
         <div className="w-96 border rounded bg-white px-7 py-10">
           <form onSubmit={handleLogin}>
             <h4 className="text-2xl mb-7">Login</h4>
-            <input type="text" placeholder='Email' className='input-box' onChange={(e) => setEmail(e.target.value)}/>
+            <input type="text" placeholder='Email' className='input-box' onChange={(e) => setEmail(e.target.value)} />
 
             <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} />
 

@@ -57,7 +57,3 @@ Replace `your_mongodb_uri` with your MongoDB connection string, and `your_jwt_se
 - To start the **frontend**, open a new terminal, navigate to the client folder, and run:
   
   `npm run dev`
-
-6. **Access the app**: Once both servers are running, you can access the ScribbleSpace app by opening your browser and navigating to:
-
-`http://localhost:3000`
