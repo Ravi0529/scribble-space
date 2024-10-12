@@ -31,15 +31,15 @@ To set up and run the ScribbleSpace app on your local machine, follow these step
 
 3. **Install dependencies**: ScribbleSpace has both a frontend and a backend. You will need to install dependencies for both parts of the application.
 
-   - For the **frontend**, navigate to the client folder and run:
+   - For the **frontend**, navigate to the frontend folder and run:
      
      `cd frontend`
      
      `npm install`
      
-   - For the **backend**, navigate to the server folder and run:
+   - For the **backend**, navigate to the backend folder and run:
      
-     `cd ../server`
+     `cd backend`
      
      `npm install`
 
