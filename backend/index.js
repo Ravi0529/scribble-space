@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 const User = require("./models/user.model.js")
 const Note = require("./models/note.model.js")
 
-mongoose.connect(process.env.MONGO_URI, { 
+mongoose.connect(process.env.MONGO_URI, {
   // useNewUrlParser: true, 
   // useUnifiedTopology: true 
 }).then(() => {
@@ -105,11 +105,13 @@ app.post('/login', async (req, res) => {
       .json({ message: "User not found" })
   }
 
-  if (userInfo.email == email && userInfo.password == password) {
-    const user = { user: userInfo }
+  const isMatch = await userInfo.comparePassword(password);
+
+  if (isMatch) {
+    const user = { user: userInfo };
     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "36000m"
-    })
+    });
 
     return res
       .json({
@@ -361,25 +363,25 @@ app.get("/search-notes", authenticateToken, async (req, res) => {
     const matchingNotes = await Note.find({
       userId: user._id,
       $or: [
-        {title: {$regex: new RegExp(query, "i")}},
-        {content: {$regex: new RegExp(query, "i")}}
+        { title: { $regex: new RegExp(query, "i") } },
+        { content: { $regex: new RegExp(query, "i") } }
       ]
     })
 
     return res
-    .json({
-      error: false,
-      notes: matchingNotes,
-      message: "Notes matching the search query recieved successfully"
-    })
+      .json({
+        error: false,
+        notes: matchingNotes,
+        message: "Notes matching the search query recieved successfully"
+      })
   }
   catch (error) {
     return res
-    .status(500)  
-    .json({
-      error: true,
-      message: "Internal Server Error"
-    })
+      .status(500)
+      .json({
+        error: true,
+        message: "Internal Server Error"
+      })
   }
 })
 
