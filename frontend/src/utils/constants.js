@@ -1,1 +1,1 @@
-export const BASE_URL = `https://scribble-space-backend.onrender.com`
+export const BASE_URL = `https://scribble-space-backend.onrender.com/`
