@@ -1,12 +1,18 @@
 require("dotenv").config()
 const express = require("express")
-const config = require("./config.json")
 const cors = require("cors")
 const mongoose = require("mongoose")
 const User = require("./models/user.model.js")
 const Note = require("./models/note.model.js")
 
-mongoose.connect(config.connectionString)
+mongoose.connect(process.env.MONGO_URI, { 
+  // useNewUrlParser: true, 
+  // useUnifiedTopology: true 
+}).then(() => {
+  console.log("Connected to MongoDB")
+}).catch(err => {
+  console.error("MongoDB connection error:", err)
+})
 
 const app = express()
 
