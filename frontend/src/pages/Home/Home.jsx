@@ -168,14 +168,13 @@ const Home = () => {
     return () => { }
   }, [])
 
-
   return (
     <>
       <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
 
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         {allNotes.length > 0 ? (
-          <div className='grid grid-cols-3 gap-3 mt-8'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8'>
             {allNotes.map((item, index) => (
               <NoteCard
                 key={item._id}
@@ -191,14 +190,19 @@ const Home = () => {
             ))}
           </div>
         ) : (
-          <EmptyCard imgSrc={isSearch ? NoDataImg : AddNotesImg} message={isSearch ? `Oops! No notes found matching your search` : `Start creating your first note! Click the 'Add' button to jot down your thoughts, ideas, and remainders. Let's get started.`} />
+          <EmptyCard
+            imgSrc={isSearch ? NoDataImg : AddNotesImg}
+            message={isSearch ? `Oops! No notes found matching your search` : `Start creating your first note! Click the 'Add' button to jot down your thoughts, ideas, and remainders. Let's get started.`}
+          />
         )}
       </div>
 
-      <button className="w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 absolute right-10 bottom-10" onClick={() => {
-        setOpenAddEditModel({ isShown: true, type: "add", data: null })
-      }}>
-        <MdAdd className="text-[32px] text-white" />
+      <button className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 flex items-center justify-center rounded-full bg-primary hover:bg-blue-600 fixed right-6 bottom-6 sm:right-8 sm:bottom-8 lg:right-10 lg:bottom-10"
+        onClick={() => {
+          setOpenAddEditModel({ isShown: true, type: "add", data: null })
+        }}
+      >
+        <MdAdd className="text-[24px] sm:text-[28px] lg:text-[32px] text-white" />
       </button>
 
       <Modal
@@ -211,7 +215,7 @@ const Home = () => {
           },
         }}
         contentLabel=""
-        className="w-[40%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 overflow-auto"
+        className="w-full sm:w-[70%] lg:w-[40%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 overflow-auto"
       >
         <AddEditNotes
           type={openAddEditModel.type}
@@ -233,6 +237,5 @@ const Home = () => {
     </>
   )
 }
-
 
 export default Home
